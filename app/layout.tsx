@@ -9,6 +9,8 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
           <Link href="/">Home</Link>
           {' | '}
           <Link href="/blogs">Blogs</Link>
+          {' | '}
+          <Link href="/blogs/new">Create New</Link>
         </nav>
         {children}
       </body>

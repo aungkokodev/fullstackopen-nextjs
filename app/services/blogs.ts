@@ -1,3 +1,5 @@
+import { randomBytes } from 'node:crypto';
+
 const blogs = [
   {
     id: '679bc9fc2f308b4efe78ef65',
@@ -43,6 +45,13 @@ const blogs = [
   }
 ];
 
+const getId = () => randomBytes(12).toString('hex');
+
 export const getBlogs = () => {
   return blogs;
+};
+
+export const addBlog = (title: string, author: string, url: string) => {
+  const newBlog = { id: getId(), title, author, url, likes: 0 };
+  blogs.push(newBlog);
 };
