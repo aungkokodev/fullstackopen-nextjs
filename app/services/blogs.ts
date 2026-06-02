@@ -59,3 +59,10 @@ export const addBlog = (title: string, author: string, url: string) => {
   const newBlog = { id: getId(), title, author, url, likes: 0 };
   blogs.push(newBlog);
 };
+
+export const increaseLike = (id: string) => {
+  const blog = blogs.find((blog) => blog.id === id);
+  if (blog) {
+    blog.likes += 1;
+  }
+};
