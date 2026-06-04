@@ -15,6 +15,20 @@
       "when": 1780590310701,
       "tag": "0001_little_pride",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1780598498676,
+      "tag": "0002_omniscient_chat",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1780598642355,
+      "tag": "0003_ordinary_sunfire",
+      "breakpoints": true
     }
   ]
 }
