@@ -1,33 +1,39 @@
-import Link from 'next/link';
-import { searchBlog } from '../actions/blogs';
-import { getBlogs } from '../services/blogs';
+import Link from 'next/link'
+import { searchBlog } from '@/app/actions/blogs'
+import { getBlogs } from '@/app/services/blogs'
 
-const Blog = async ({ searchParams }: { searchParams: Promise<{ search: string }> }) => {
-  const { search } = await searchParams;
+interface Props {
+  searchParams: Promise<{ search: string }>
+}
 
-  const blogs = getBlogs();
-  const blogsBySearch = search
-    ? blogs.filter((blog) => blog.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-    : blogs;
+const Blog = async ({ searchParams }: Props) => {
+  const { search } = await searchParams
 
-  const blogsByLikes = blogsBySearch.toSorted((a, b) => b.likes - a.likes);
+  const blogs = await getBlogs(search)
 
   return (
     <div>
       <h2>Blogs</h2>
+
       <form action={searchBlog}>
-        <input type="text" name="search" id="blog-search" defaultValue={search} />
-        <button type="submit">Search</button>
+        <input
+          type='text'
+          name='search'
+          id='blog-search'
+          defaultValue={search}
+        />
+        <button type='submit'>Search</button>
       </form>
+
       <ul>
-        {blogsByLikes.map((blog) => (
+        {blogs.map(blog => (
           <li key={blog.id}>
             <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
           </li>
         ))}
       </ul>
     </div>
-  );
-};
+  )
+}
 
-export default Blog;
+export default Blog

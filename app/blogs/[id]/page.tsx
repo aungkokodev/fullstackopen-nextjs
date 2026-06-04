@@ -1,13 +1,17 @@
-import { likeBlog } from '@/app/actions/blogs';
-import { getBlogById } from '@/app/services/blogs';
-import { notFound } from 'next/navigation';
+import { likeBlog } from '@/app/actions/blogs'
+import { getBlogById } from '@/app/services/blogs'
+import { notFound } from 'next/navigation'
 
-const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const { id } = await params;
-  const blog = getBlogById(id);
+interface Props {
+  params: Promise<{ id: string }>
+}
+
+const BlogPage = async ({ params }: Props) => {
+  const { id } = await params
+  const blog = await getBlogById(Number(id))
 
   if (!blog) {
-    notFound();
+    notFound()
   }
 
   return (
@@ -17,11 +21,15 @@ const BlogPage = async ({ params }: { params: Promise<{ id: string }> }) => {
       <a href={blog.url}>{blog.url}</a>
       <p>{blog.likes} Likes </p>
       <form action={likeBlog}>
-        <input type="hidden" name="id" value={blog.id} />
-        <button type="submit">Like</button>
+        <input
+          type='hidden'
+          name='id'
+          value={blog.id}
+        />
+        <button type='submit'>Like</button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default BlogPage;
+export default BlogPage
