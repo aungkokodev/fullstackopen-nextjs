@@ -20,7 +20,12 @@ const NavBar = () => {
           <em> {session.user?.name} logged in </em>
           <button onClick={() => signOut()}>Logout</button>
         </>
-      : <Link href='/login'>Login</Link>}
+      : <>
+          <Link href='/login'>Login</Link>
+          {' | '}
+          <Link href='/register'>Register</Link>
+        </>
+      }
     </nav>
   )
 }
