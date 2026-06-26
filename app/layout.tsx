@@ -1,20 +1,15 @@
-import Link from 'next/link'
 import React from 'react'
+import NavBar from './components/NavBar'
+import AuthSessionProvider from './components/SessionProvider'
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang='en'>
       <body>
-        <nav>
-          <Link href='/'>Home</Link>
-          {' | '}
-          <Link href='/blogs'>Blogs</Link>
-          {' | '}
-          <Link href='/users'>Users</Link>
-          {' | '}
-          <Link href='/blogs/new'>Create New</Link>
-        </nav>
-        {children}
+        <AuthSessionProvider>
+          <NavBar />
+          {children}
+        </AuthSessionProvider>
       </body>
     </html>
   )

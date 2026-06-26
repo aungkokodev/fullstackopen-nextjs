@@ -2,9 +2,15 @@
 
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { auth } from '../auth'
 import { addBlog, increaseLike } from '../services/blogs'
 
 export const createBlog = async (formData: FormData) => {
+  const session = await auth()
+  if (!session) {
+    redirect('/login')
+  }
+
   const title = formData.get('title') as string
   const author = formData.get('author') as string
   const url = formData.get('url') as string
@@ -15,6 +21,11 @@ export const createBlog = async (formData: FormData) => {
 }
 
 export const likeBlog = async (formData: FormData) => {
+  const session = await auth()
+  if (!session) {
+    redirect('/login')
+  }
+
   const id = formData.get('id') as string
 
   await increaseLike(Number(id))
