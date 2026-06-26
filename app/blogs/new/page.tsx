@@ -1,37 +1,60 @@
+'use client'
+
 import { createBlog } from '@/app/actions/blogs'
+import { useActionState } from 'react'
 
 const NewBlog = () => {
+  const [state, formAction] = useActionState(createBlog, {
+    errors: {
+      title: '',
+      author: '',
+      url: ''
+    }
+  })
+
   return (
     <div>
       <h2>Create New Blog</h2>
-      <form action={createBlog}>
-        <label>
-          Title:{' '}
-          <input
-            type='text'
-            name='title'
-            id='blog-title'
-          />
-        </label>
-        <br />
-        <label>
-          Author:{' '}
-          <input
-            type='text'
-            name='author'
-            id='blog-author'
-          />
-        </label>
-        <br />
-        <label>
-          URL:{' '}
-          <input
-            type='text'
-            name='url'
-            id='blog-url'
-          />
-        </label>
-        <br />
+      <form action={formAction}>
+        <div>
+          <label>
+            Title:
+            <input
+              type='text'
+              name='title'
+              id='blog-title'
+            />
+          </label>
+          {state.errors.title && (
+            <span style={{ color: 'red' }}> {state.errors.title}</span>
+          )}
+        </div>
+        <div>
+          <label>
+            Author:
+            <input
+              type='text'
+              name='author'
+              id='blog-author'
+            />
+          </label>
+          {state.errors.author && (
+            <span style={{ color: 'red' }}> {state.errors.author}</span>
+          )}
+        </div>
+        <div>
+          <label>
+            URL:
+            <input
+              type='text'
+              name='url'
+              id='blog-url'
+            />
+          </label>
+          {state.errors.url && (
+            <span style={{ color: 'red' }}> {state.errors.url}</span>
+          )}
+        </div>
         <button type='submit'>Create</button>
       </form>
     </div>
