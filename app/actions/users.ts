@@ -4,7 +4,6 @@ import { db } from '@/db'
 import { users } from '@/db/schema'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
-import { redirect } from 'next/navigation'
 
 const validate = (value: string, name: string, len = 4) => {
   if (!value) return `${name} must not be empty`
@@ -21,7 +20,7 @@ interface FormState {
 }
 
 export const registerUser = async (
-  prevState: { errors: FormState; values: FormState },
+  prevState: { errors: FormState; values?: FormState; success?: boolean },
   formData: FormData
 ) => {
   const name = (formData.get('name') as string).trim()
@@ -37,7 +36,11 @@ export const registerUser = async (
   }
 
   if (Object.values(errors).some(Boolean)) {
-    return { errors, values: { name, username, password, confirm } }
+    return {
+      errors,
+      values: { name, username, password, confirm },
+      success: false
+    }
   }
 
   const userExists = await db.query.users.findFirst({
@@ -46,12 +49,16 @@ export const registerUser = async (
 
   if (userExists) {
     errors.username = 'username must be unique'
-    return { errors, values: { name, username, password, confirm } }
+    return {
+      errors,
+      values: { name, username, password, confirm },
+      success: false
+    }
   }
 
   const passwordHash = await bcrypt.hash(password, 10)
 
   await db.insert(users).values({ name, username, passwordHash })
 
-  redirect('/login')
+  return { errors, success: true }
 }
