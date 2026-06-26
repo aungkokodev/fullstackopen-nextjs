@@ -19,7 +19,7 @@ const validate = (value: string, name: string, len = 5) => {
 }
 
 export const createBlog = async (
-  prevState: { errors: ActionState },
+  prevState: { errors: ActionState; values: ActionState },
   formData: FormData
 ) => {
   const session = await auth()
@@ -38,7 +38,7 @@ export const createBlog = async (
   }
 
   if (Object.values(errors).some(Boolean)) {
-    return { errors }
+    return { errors, values: { title, author, url } }
   }
 
   await addBlog(title, author, url)

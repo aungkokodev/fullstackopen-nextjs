@@ -3,13 +3,16 @@
 import { createBlog } from '@/app/actions/blogs'
 import { useActionState } from 'react'
 
+const initialState = {
+  title: '',
+  author: '',
+  url: ''
+}
+
 const NewBlog = () => {
   const [state, formAction] = useActionState(createBlog, {
-    errors: {
-      title: '',
-      author: '',
-      url: ''
-    }
+    errors: { ...initialState },
+    values: { ...initialState }
   })
 
   return (
@@ -23,6 +26,7 @@ const NewBlog = () => {
               type='text'
               name='title'
               id='blog-title'
+              defaultValue={state.values?.title}
             />
           </label>
           {state.errors.title && (
@@ -36,6 +40,7 @@ const NewBlog = () => {
               type='text'
               name='author'
               id='blog-author'
+              defaultValue={state.values?.author}
             />
           </label>
           {state.errors.author && (
@@ -49,6 +54,7 @@ const NewBlog = () => {
               type='text'
               name='url'
               id='blog-url'
+              defaultValue={state.values?.url}
             />
           </label>
           {state.errors.url && (
