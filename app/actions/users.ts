@@ -4,6 +4,9 @@ import { db } from '@/db'
 import { users } from '@/db/schema'
 import bcrypt from 'bcryptjs'
 import { eq } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
+import { auth } from '../auth'
 
 const validate = (value: string, name: string, len = 4) => {
   if (!value) return `${name} must not be empty`
@@ -61,4 +64,24 @@ export const registerUser = async (
   await db.insert(users).values({ name, username, passwordHash })
 
   return { errors, success: true }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const generateToken = async (prevState: {
+  error: string
+  success: boolean
+}) => {
+  const session = await auth()
+  if (!session || !session.user?.email) {
+    redirect('/login')
+  }
+
+  const token = crypto.randomUUID()
+  await db
+    .update(users)
+    .set({ token })
+    .where(eq(users.username, session.user.email as string))
+
+  revalidatePath('/me')
+  return { success: true, error: '' }
 }

@@ -27,9 +27,9 @@ export const createBlog = async (
     redirect('/login')
   }
 
-  const title = formData.get('title') as string
-  const author = formData.get('author') as string
-  const url = formData.get('url') as string
+  const title = (formData.get('title') as string).trim()
+  const author = (formData.get('author') as string).trim()
+  const url = (formData.get('url') as string).trim()
 
   const errors = {
     title: validate(title, 'title'),

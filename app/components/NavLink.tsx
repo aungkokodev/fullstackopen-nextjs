@@ -5,15 +5,10 @@ interface NavLinkProps {
   children: React.ReactNode
 }
 
-const NavLink = ({ href, children }: NavLinkProps) => {
-  return (
-    <Link
-      href={href}
-      className='hover:text-gray-400'
-    >
-      {children}
-    </Link>
-  )
-}
+const NavLink = ({ href, children }: NavLinkProps) => (
+  <Link href={href} className='hover:text-gray-400'>
+    {children}
+  </Link>
+)
 
 export default NavLink

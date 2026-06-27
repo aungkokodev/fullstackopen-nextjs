@@ -17,13 +17,12 @@ const NavBar = () => {
       {session ?
         <>
           <NavLink href='/blogs/new'>Create New</NavLink>
-          <em className='text-sm text-gray-400'>
+          <NavLink href='/me'>Me</NavLink>
+
+          {/* <em className='text-sm text-gray-400'>
             {session.user?.name} logged in
-          </em>
-          <Button
-            className='bg-red-600'
-            onClick={() => signOut()}
-          >
+          </em> */}
+          <Button className='bg-red-600' onClick={() => signOut()}>
             Logout
           </Button>
         </>
