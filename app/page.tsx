@@ -1,5 +1,10 @@
-const Home = () => {
-  return <h2>Home Page</h2>
-}
+import Container from './components/Container'
+import Header from './components/Header'
+
+const Home = () => (
+  <Container>
+    <Header title='Home' />
+  </Container>
+)
 
 export default Home

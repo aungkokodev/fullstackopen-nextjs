@@ -3,6 +3,10 @@
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
 import { registerUser } from '../actions/users'
+import Button from '../components/Button'
+import Container from '../components/Container'
+import Header from '../components/Header'
+import InputGroup from '../components/InputGroup'
 import { useNotification } from '../components/NotificationContext'
 
 const initialState = {
@@ -29,64 +33,40 @@ const Register = () => {
   }, [router, showNotification, state.success])
 
   return (
-    <div>
-      <h2>Regiser</h2>
-      <form action={formAction}>
-        <div>
-          <label>
-            Name
-            <input
-              type='text'
-              name='name'
-              defaultValue={state.values?.name}
-            />
-          </label>
-          {state.errors?.name && (
-            <span style={{ color: 'red' }}> {state.errors?.name}</span>
-          )}
-        </div>
-        <div>
-          <label>
-            Username
-            <input
-              type='text'
-              name='username'
-              defaultValue={state.values?.username}
-            />
-          </label>
-          {state.errors?.username && (
-            <span style={{ color: 'red' }}> {state.errors?.username}</span>
-          )}
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type='password'
-              name='password'
-              defaultValue={state.values?.password}
-            />
-          </label>
-          {state.errors?.password && (
-            <span style={{ color: 'red' }}> {state.errors?.password}</span>
-          )}
-        </div>
-        <div>
-          <label>
-            Confirm Password
-            <input
-              type='password'
-              name='confirm'
-              defaultValue={state.values?.confirm}
-            />
-          </label>
-          {state.errors?.confirm && (
-            <span style={{ color: 'red' }}> {state.errors?.confirm}</span>
-          )}
-        </div>
-        <button type='submit'>Register</button>
+    <Container>
+      <Header title='Register' className='text-center' />
+      <form action={formAction} className='space-y-2 max-w-xs mx-auto'>
+        <InputGroup
+          label='Name'
+          type='text'
+          name='name'
+          defaultValue={state.values?.name}
+          error={state.errors?.name}
+        />
+        <InputGroup
+          label='Username'
+          type='text'
+          name='username'
+          defaultValue={state.values?.username}
+          error={state.errors?.username}
+        />
+        <InputGroup
+          label='Password'
+          type='password'
+          name='password'
+          defaultValue={state.values?.password}
+          error={state.errors?.password}
+        />
+        <InputGroup
+          label='Confirm Password'
+          type='password'
+          name='confirm'
+          defaultValue={state.values?.confirm}
+          error={state.errors?.confirm}
+        />
+        <Button className='mt-4 w-full h-9'>Register</Button>
       </form>
-    </div>
+    </Container>
   )
 }
 

@@ -1,20 +1,16 @@
-import Link from 'next/link'
+import Container from '../components/Container'
+import Header from '../components/Header'
 import { getUsers } from '../services/users'
+import UserList from './UserList'
 
 const Users = async () => {
   const users = await getUsers()
 
   return (
-    <div>
-      <h2>Users</h2>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            <Link href={`/users/${user.username}`}>{user.name}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container>
+      <Header title='User List' />
+      <UserList users={users} />
+    </Container>
   )
 }
 

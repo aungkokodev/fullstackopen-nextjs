@@ -1,6 +1,10 @@
 'use client'
 
 import { createBlog } from '@/app/actions/blogs'
+import Button from '@/app/components/Button'
+import Container from '@/app/components/Container'
+import Header from '@/app/components/Header'
+import InputGroup from '@/app/components/InputGroup'
 import { useNotification } from '@/app/components/NotificationContext'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
@@ -28,54 +32,36 @@ const NewBlog = () => {
   }, [router, showNotification, state.success])
 
   return (
-    <div>
-      <h2>Create New Blog</h2>
-      <form action={formAction}>
-        <div>
-          <label>
-            Title:
-            <input
-              type='text'
-              name='title'
-              id='blog-title'
-              defaultValue={state.values?.title}
-            />
-          </label>
-          {state.errors.title && (
-            <span style={{ color: 'red' }}> {state.errors.title}</span>
-          )}
-        </div>
-        <div>
-          <label>
-            Author:
-            <input
-              type='text'
-              name='author'
-              id='blog-author'
-              defaultValue={state.values?.author}
-            />
-          </label>
-          {state.errors.author && (
-            <span style={{ color: 'red' }}> {state.errors.author}</span>
-          )}
-        </div>
-        <div>
-          <label>
-            URL:
-            <input
-              type='text'
-              name='url'
-              id='blog-url'
-              defaultValue={state.values?.url}
-            />
-          </label>
-          {state.errors.url && (
-            <span style={{ color: 'red' }}> {state.errors.url}</span>
-          )}
-        </div>
-        <button type='submit'>Create</button>
+    <Container>
+      <Header title='Create New Blog' className='text-center' />
+      <form action={formAction} className='space-y-2 max-w-xs mx-auto'>
+        <InputGroup
+          label='Title'
+          name='title'
+          id='blog-title'
+          placeholder='Blog Title'
+          defaultValue={state.values?.title}
+          error={state.errors.title}
+        />
+        <InputGroup
+          label='Author'
+          name='author'
+          id='blog-author'
+          placeholder='John'
+          defaultValue={state.values?.author}
+          error={state.errors.author}
+        />
+        <InputGroup
+          label='URL'
+          name='url'
+          id='blog-url'
+          placeholder='http://example.com'
+          defaultValue={state.values?.url}
+          error={state.errors.url}
+        />
+        <Button className='mt-4 w-full h-9'>Create</Button>
       </form>
-    </div>
+    </Container>
   )
 }
 

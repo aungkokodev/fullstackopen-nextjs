@@ -2,6 +2,10 @@
 
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import Button from '../components/Button'
+import Container from '../components/Container'
+import Header from '../components/Header'
+import InputGroup from '../components/InputGroup'
 import { useNotification } from '../components/NotificationContext'
 
 const Login = () => {
@@ -29,32 +33,14 @@ const Login = () => {
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            Username
-            <input
-              type='text'
-              name='username'
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type='password'
-              name='password'
-              required
-            />
-          </label>
-        </div>
-        <button type='submit'>Login</button>
+    <Container>
+      <Header title='Login' className='text-center' />
+      <form onSubmit={handleSubmit} className='space-y-2 max-w-xs mx-auto'>
+        <InputGroup label='Username' type='text' name='username' />
+        <InputGroup label='Password' type='password' name='password' />
+        <Button className='mt-4 w-full h-9'>Login</Button>
       </form>
-    </div>
+    </Container>
   )
 }
 

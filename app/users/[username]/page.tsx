@@ -1,5 +1,7 @@
+import BlogList from '@/app/blogs/BlogList'
+import Container from '@/app/components/Container'
+import Header from '@/app/components/Header'
 import { getUserWithBlogs } from '@/app/services/users'
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -16,18 +18,12 @@ const UserPage = async ({ params }: Props) => {
   }
 
   return (
-    <div>
-      <h2>{user.name}</h2>
-      <p>{user.username}</p>
-      <h3>Blogs</h3>
-      <ul>
-        {user.blogs.map(blog => (
-          <li key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Container>
+      <Header title={user.name} />
+      <p className='text-gray-400 italic'>@{user.username}</p>
+      <h3 className='font-bold text-gray-600 my-4'>Blogs Added</h3>
+      <BlogList blogs={user.blogs} />
+    </Container>
   )
 }
 

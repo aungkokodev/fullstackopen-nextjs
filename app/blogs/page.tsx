@@ -1,6 +1,10 @@
-import Link from 'next/link'
 import { searchBlog } from '@/app/actions/blogs'
 import { getBlogs } from '@/app/services/blogs'
+import Button from '../components/Button'
+import Container from '../components/Container'
+import Header from '../components/Header'
+import Textbox from '../components/Textbox'
+import BlogList from './BlogList'
 
 interface Props {
   searchParams: Promise<{ search: string }>
@@ -8,31 +12,22 @@ interface Props {
 
 const Blog = async ({ searchParams }: Props) => {
   const { search } = await searchParams
-
   const blogs = await getBlogs(search)
 
   return (
-    <div>
-      <h2>Blogs</h2>
-
-      <form action={searchBlog}>
-        <input
-          type='text'
+    <Container>
+      <Header title='Blog List' />
+      <form action={searchBlog} className='w-full sm:w-1/2 flex gap-2 my-4'>
+        <Textbox
           name='search'
-          id='blog-search'
           defaultValue={search}
+          placeholder='search'
+          className='w-full'
         />
-        <button type='submit'>Search</button>
+        <Button>Search</Button>
       </form>
-
-      <ul>
-        {blogs.map(blog => (
-          <li key={blog.id}>
-            <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <BlogList blogs={blogs} />
+    </Container>
   )
 }
 
