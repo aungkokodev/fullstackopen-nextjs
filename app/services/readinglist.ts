@@ -35,3 +35,15 @@ export const getReadinglist = async () => {
     }
   })
 }
+
+export const toggleReadStatus = async (id: number, read: boolean = true) => {
+  const user = await getCurrentUser()
+  if (!user) {
+    throw new Error('Not logged in')
+  }
+
+  await db
+    .update(readinglist)
+    .set({ read })
+    .where(and(eq(readinglist.userId, user.id), eq(readinglist.blogId, id)))
+}
