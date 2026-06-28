@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Item from '../components/Item'
 
 interface Blog {
   id: number
@@ -16,20 +17,12 @@ interface BlogListProps {
 const BlogList = ({ blogs }: BlogListProps) => (
   <ul className='space-y-2'>
     {blogs.map(blog => (
-      <li
-        key={blog.id}
-        className='px-4 py-2 rounded bg-blue-50 border border-blue-400 text-gray-600 hover:text-blue-600 hover:bg-blue-100 '
-      >
-        <Link
-          href={`/blogs/${blog.id}`}
-          className='hover:underline hover:text-blue-600'
-        >
-          {blog.title.length > 48 ?
-            blog.title.slice(0, 48).concat('...')
-          : blog.title}
+      <Item key={blog.id}>
+        <Link href={`/blogs/${blog.id}`} className='hover:underline'>
+          {blog.title}
         </Link>
         <span className='text-sm text-gray-400'> By {blog.author}</span>
-      </li>
+      </Item>
     ))}
   </ul>
 )

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { auth } from '../auth'
 import { addBlog, increaseLike } from '../services/blogs'
+import { addReading } from '../services/readinglist'
 
 interface ActionState {
   title: string
@@ -41,7 +42,8 @@ export const createBlog = async (
     return { errors, values: { title, author, url }, success: false }
   }
 
-  await addBlog(title, author, url)
+  const addedBlog = await addBlog(title, author, url)
+  await addReading(addedBlog.id)
 
   revalidatePath('/blogs')
   return { errors, success: true }

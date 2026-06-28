@@ -11,8 +11,16 @@ export const getBlogs = async (filter: string) => {
 }
 
 export const getBlogById = async (id: number) => {
+  const user = await getCurrentUser()
+
   return await db.query.blogs.findFirst({
-    where: eq(blogs.id, id)
+    where: eq(blogs.id, id),
+    with: {
+      readers:
+        user?.id ?
+          { where: (readinglist, { eq }) => eq(readinglist.userId, user.id) }
+        : undefined
+    }
   })
 }
 
@@ -22,11 +30,12 @@ export const addBlog = async (title: string, author: string, url: string) => {
     throw new Error('Not logged in')
   }
 
-  if (user) {
-    await db
-      .insert(blogs)
-      .values({ title, author, url, likes: 0, userId: user.id })
-  }
+  const [addedBlog] = await db
+    .insert(blogs)
+    .values({ title, author, url, likes: 0, userId: user.id })
+    .returning()
+
+  return addedBlog
 }
 
 export const increaseLike = async (id: number) => {
