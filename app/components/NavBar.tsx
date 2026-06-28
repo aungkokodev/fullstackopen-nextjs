@@ -8,7 +8,7 @@ const NavBar = () => {
   const { data: session } = useSession()
 
   return (
-    <nav className='bg-blue-950 text-white px-6 py-4 flex items-center gap-4'>
+    <nav className='bg-blue-950 text-white px-6 py-4 flex items-center gap-4 flex-wrap'>
       <div className='me-auto font-bold'>
         <NavLink href='/'>Home</NavLink>
       </div>

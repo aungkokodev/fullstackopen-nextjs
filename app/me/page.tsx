@@ -4,6 +4,7 @@ import Container from '../components/Container'
 import Header from '../components/Header'
 import { getCurrentUser } from '../services/session'
 import TokenForm from './TokenForm'
+import CopyButton from './CopyButton'
 
 const Me = async () => {
   const session = await auth()
@@ -34,9 +35,10 @@ const Me = async () => {
             {user.token ?
               <>
                 <p>Current token:</p>
-                <p className='bg-blue-100 text-gray-800 px-4 py-2 rounded mt-2'>
-                  {user.token}
-                </p>
+                <div className='bg-blue-100 text-gray-800 px-4 py-2 rounded mt-2 flex items-center justify-between'>
+                  <p>{user.token}</p>
+                  <CopyButton text={user.token} />
+                </div>
               </>
             : <p className='text-gray-600 italic'>
                 No token has been generated yet
