@@ -1,6 +1,7 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { notFound, useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
 import { registerUser } from '../actions/users'
 import Button from '../components/Button'
@@ -31,6 +32,11 @@ const Register = () => {
       router.push('/login')
     }
   }, [router, showNotification, state.success])
+
+  const { data: session, status } = useSession()
+  if (status === 'loading' || session) {
+    return null
+  }
 
   return (
     <Container>

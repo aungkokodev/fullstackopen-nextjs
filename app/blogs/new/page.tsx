@@ -6,6 +6,7 @@ import Container from '@/app/components/Container'
 import Header from '@/app/components/Header'
 import InputGroup from '@/app/components/InputGroup'
 import { useNotification } from '@/app/components/NotificationContext'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
 
@@ -23,13 +24,22 @@ const NewBlog = () => {
   })
   const { showNotification } = useNotification()
   const router = useRouter()
+  const { data: session, status } = useSession()
 
   useEffect(() => {
     if (state.success) {
       showNotification('blog created successfully')
       router.push('/blogs')
     }
-  }, [router, showNotification, state.success])
+    if (!session) {
+      router.push('/login')
+      router.refresh()
+    }
+  }, [router, session, showNotification, state.success])
+
+  if (status === 'loading' || !session) {
+    return null
+  }
 
   return (
     <Container>

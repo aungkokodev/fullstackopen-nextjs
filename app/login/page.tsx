@@ -1,7 +1,7 @@
 'use client'
 
-import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { signIn, useSession } from 'next-auth/react'
+import { notFound, useRouter } from 'next/navigation'
 import Button from '../components/Button'
 import Container from '../components/Container'
 import Header from '../components/Header'
@@ -30,6 +30,11 @@ const Login = () => {
       router.push('/')
       router.refresh()
     }
+  }
+
+  const { data: session, status } = useSession()
+  if (status === 'loading' || session) {
+    return null
   }
 
   return (

@@ -1,9 +1,9 @@
 import Container from './components/Container'
-import Header from './components/Header'
+import Homepage from './homepage.mdx'
 
 const Home = () => (
-  <Container>
-    <Header title='Home' />
+  <Container className='markdown'>
+    <Homepage />
   </Container>
 )
 
