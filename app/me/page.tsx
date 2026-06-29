@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import { auth } from '../auth'
 import Container from '../components/Container'
 import { getCurrentUser } from '../services/session'
@@ -10,8 +10,9 @@ import Token from './Token'
 const Me = async () => {
   const session = await auth()
   const user = await getCurrentUser()
+
   if (!session || !user) {
-    return notFound()
+    redirect('/login')
   }
 
   return (

@@ -10,6 +10,7 @@ const Notification = () => {
   return (
     <div
       className={`text-white p-4 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`}
+      data-testid={type === 'error' ? 'error-message' : 'notification'}
     >
       <p>{message}</p>
     </div>

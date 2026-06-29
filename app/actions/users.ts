@@ -29,7 +29,7 @@ export const registerUser = async (
   const name = (formData.get('name') as string).trim()
   const username = (formData.get('username') as string).trim()
   const password = formData.get('password') as string
-  const confirm = formData.get('confirm') as string
+  const confirm = formData.get('passwordConfirm') as string
 
   const errors = {
     name: validate(name, 'name'),

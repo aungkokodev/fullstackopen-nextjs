@@ -20,9 +20,11 @@ const BlogPage = async ({ params }: Props) => {
 
   return (
     <Container>
-      <Header title={blog.title} />
-      <div className='space-y-2'>
-        <p className='text-gray-400 italic'>By {blog.author}</p>
+      <Header title={blog.title} data-testid='blog-title' />
+      <div className='space-y-2' data-testid='blog-detail'>
+        <p className='text-gray-400 italic' data-testid='blog-author'>
+          By {blog.author}
+        </p>
         <div className='flex gap-4 items-center'>
           <p>
             {blog.likes} {blog.likes > 1 ? 'Likes' : 'Like'}
@@ -34,7 +36,12 @@ const BlogPage = async ({ params }: Props) => {
           {blog.readers?.length === 0 && (
             <form action={addToReadinglist}>
               <input type='hidden' name='id' value={blog.id} />
-              <Button className='bg-green-600'>Add to reading list</Button>
+              <Button
+                className='bg-green-600'
+                data-testid='add-to-reading-list-button'
+              >
+                Add to reading list
+              </Button>
             </form>
           )}
         </div>

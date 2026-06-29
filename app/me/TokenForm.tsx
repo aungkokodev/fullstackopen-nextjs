@@ -20,7 +20,11 @@ const TokenForm = () => {
 
   return (
     <form action={formAction}>
-      <Button disabled={isPending} className='w-50 h-10'>
+      <Button
+        disabled={isPending}
+        className='w-50 h-10'
+        data-testid='generate-token-button'
+      >
         {isPending ? 'Generating token...' : 'Generate New Token'}
       </Button>
     </form>

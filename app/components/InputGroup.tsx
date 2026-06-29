@@ -8,11 +8,16 @@ interface InputGroupProps extends ComponentPropsWithRef<'input'> {
 
 const InputGroup = ({ label, error, ...props }: InputGroupProps) => (
   <div className='flex flex-col gap-1'>
-    <label htmlFor={props.id} className='text-gray-600'>
-      {label}
+    <label htmlFor={props.id} className='text-gray-600 flex flex-col gap-2'>
+      <span>{label}</span>
+      <Textbox {...props} />
     </label>
-    <Textbox {...props} />
-    <p className='text-sm text-red-600 italic'>{error}</p>
+    <p
+      className='text-sm text-red-600 italic'
+      data-testid={`${props.name}-error`}
+    >
+      {error}
+    </p>
   </div>
 )
 

@@ -23,8 +23,9 @@ const Blog = async ({ searchParams }: Props) => {
           defaultValue={search}
           placeholder='search'
           className='w-full'
+          data-testid='filter-input'
         />
-        <Button>Search</Button>
+        <Button data-testid='search-button'>Search</Button>
       </form>
       <BlogList blogs={blogs} />
     </Container>

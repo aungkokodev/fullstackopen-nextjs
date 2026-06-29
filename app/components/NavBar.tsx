@@ -16,19 +16,19 @@ const NavBar = () => {
       <div className='me-auto font-bold'>
         <NavLink href='/'>Home</NavLink>
       </div>
-      <NavLink href='/blogs'>Blogs</NavLink>
-      <NavLink href='/users'>Users</NavLink>
+      <NavLink href='/blogs'>blogs</NavLink>
+      <NavLink href='/users'>users</NavLink>
       {session ?
         <>
-          <NavLink href='/blogs/new'>Create New</NavLink>
-          <NavLink href='/me'>Me</NavLink>
+          <NavLink href='/blogs/new'>create new</NavLink>
+          <NavLink href='/me'>me</NavLink>
           <Button className='bg-red-600' onClick={logout}>
-            Logout
+            logout
           </Button>
         </>
       : <>
-          <NavLink href='/login'>Login</NavLink>
-          <NavLink href='/register'>Register</NavLink>
+          <NavLink href='/login'>login</NavLink>
+          <NavLink href='/register'>register</NavLink>
         </>
       }
     </nav>

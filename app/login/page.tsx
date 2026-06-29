@@ -1,7 +1,7 @@
 'use client'
 
-import { signIn, useSession } from 'next-auth/react'
-import { notFound, useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import Button from '../components/Button'
 import Container from '../components/Container'
 import Header from '../components/Header'
@@ -32,18 +32,15 @@ const Login = () => {
     }
   }
 
-  const { data: session, status } = useSession()
-  if (status === 'loading' || session) {
-    return null
-  }
-
   return (
     <Container>
       <Header title='Login' className='text-center' />
       <form onSubmit={handleSubmit} className='space-y-2 max-w-xs mx-auto'>
         <InputGroup label='Username' type='text' name='username' />
         <InputGroup label='Password' type='password' name='password' />
-        <Button className='mt-4 w-full h-9'>Login</Button>
+        <Button className='mt-4 w-full h-9' data-testid='login-button'>
+          Login
+        </Button>
       </form>
     </Container>
   )

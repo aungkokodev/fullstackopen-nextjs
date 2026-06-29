@@ -1,7 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
-import { notFound, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useActionState, useEffect } from 'react'
 import { registerUser } from '../actions/users'
 import Button from '../components/Button'
@@ -30,13 +29,9 @@ const Register = () => {
     if (state.success) {
       showNotification('user created successfully')
       router.push('/login')
+      router.refresh()
     }
   }, [router, showNotification, state.success])
-
-  const { data: session, status } = useSession()
-  if (status === 'loading' || session) {
-    return null
-  }
 
   return (
     <Container>
@@ -66,11 +61,13 @@ const Register = () => {
         <InputGroup
           label='Confirm Password'
           type='password'
-          name='confirm'
+          name='passwordConfirm'
           defaultValue={state.values?.confirm}
           error={state.errors?.confirm}
         />
-        <Button className='mt-4 w-full h-9'>Register</Button>
+        <Button className='mt-4 w-full h-9' data-testid='register-button'>
+          Register
+        </Button>
       </form>
     </Container>
   )
